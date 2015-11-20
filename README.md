@@ -25,18 +25,18 @@
 -`{"status":"internal error","content":"post null"}`POST请求数据为空  
 -`{"status":"ok"}`成功  
 -`{"status":"internal error"}`内部错误
-#####IM接收
+#####IM接收（前提成功）
 ```
 {  
 	"target_type":"users",     // users 给用户发消息,  chatgroups 给群发消息  
-	"target":["testb","testc"], // 注意这里需要用数组  
+	"target":["imb","imc"], // 注意这里需要用数组  
                                 // 一个用户u1或者群组, 也要用数组形式 ['u1'], 给用户发  
                                 // 送时数组元素是用户名,给群组发送时数组元素是groupid  
 	"msg":{  //消息内容  
 		"type":"cmd",  //消息类型  
-		"action":"action1"  //信息获取  
+		"action":"action1"  //信息获取（客户端主要获取数据）  
 	},  
-	"from":"testa",  //表示这个消息是谁发出来的, 可以没有这个属性, 那么就会显示是admin, 如果有的话, 则会显示是这个用户发出的  
+	"from":"ima",  //表示这个消息是谁发出来的, 可以没有这个属性, 那么就会显示是admin, 如果有的话, 则会显示是这个用户发出的  
 	"ext":{   //扩展属性, 由app自己定义.可以没有这个字段，但是如果有，值不能是“ext:null“这种形式，否则出错  
 		"attr1":"v1",  
 		"attr2":"v2"  
