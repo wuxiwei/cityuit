@@ -1,4 +1,5 @@
 <?php
+include ("./database/database.php");//连接数据库
 /*
  * 同意输出流处理
  */
@@ -16,4 +17,14 @@ function postnull($options){
         }
     }
     return true;
+}
+/*
+ * 获取im帐号
+ */
+function getim($options,$pdo){
+	$sql="SELECT * FROM `register_user` WHERE `username` = '$options'";
+    $resultsql = $pdo->query($sql);
+    $row = $resultsql->fetch();
+    $a = $row['im'];
+    return $a;
 }

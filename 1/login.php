@@ -43,7 +43,7 @@ switch($linkresult['status']){
                 $imuser = array('username'=>$username, 'password'=>$username);
                 $registerRes = json_decode($IM->accreditRegister($imuser), true);
                 //print_r($registerRes);
-                if($registerRes['action']){
+                if($registerRes['action'] == 'post'){
                     //环信注成功以后才将用户信息写入数据库(密码帐号都是学号)
                     $sql_in="INSERT INTO `register_user` ( `username`, `password`, `name`, `im`) VALUES ('$username', '$password', '$linkresult[man]', '$username');";
                     $pdo->exec($sql_in);
@@ -62,6 +62,12 @@ switch($linkresult['status']){
         }
         break;
     case 'login failed':
+        echoinf($linkresult);
+        break;
+    case 'internal error':
+        echoinf($linkresult);
+        break;
+    case 'School network connection failure':
         echoinf($linkresult);
         break;
     default:
