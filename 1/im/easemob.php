@@ -194,6 +194,33 @@ class Easemob {
 		return $result;
 	}
 	/**
+	 * 发送透传消息
+	 *
+	 * @param string $from_user
+	 *        	发送方用户名
+	 * @param array $username
+	 *        	array('1','2')
+	 * @param string $target_type
+	 *        	默认为：users 描述：给一个或者多个用户(users)或者群组发送消息(chatgroups)
+	 * @param string $content        	
+	 * @param array $ext
+	 *        	自定义参数
+	 */
+	function xx_hxSend($username, $content, $ext, $from_user = "admin",$target_type = "users") {
+		$option ['target_type'] = $target_type;
+		$option ['target'] = $username;
+		$params ['type'] = "cmd";
+		$params ['action'] = $content;
+		$option ['msg'] = $params;
+		$option ['from'] = $from_user;
+		$option ['ext'] = $ext;
+		$url = $this->url . "messages";
+		$access_token = $this->getToken ();
+		$header [] = 'Authorization: Bearer ' . $access_token;
+		$result = $this->postCurl ( $url, $option, $header );
+		return $result;
+	}
+	/**
 	 * 获取app中所有的群组
 	 */
 	public function chatGroups() {
