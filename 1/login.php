@@ -13,7 +13,7 @@ if(!postnull([$username,$password])){
     exit();
 }
 
-$url = "http://120.27.53.146:5000/api/login";
+$url = "http://server:port/api/login";    //验证登陆接口
 // 参数数组
 $data = [
     "username"=>$username,
