@@ -3,7 +3,8 @@
 创建一个IM对象
 */
 include ("easemob.php");
-$opt=array('client_id'=>'','client_secret'=>'','org_name'=>'','app_name'=>'');
+include ("config.php");
+$opt=array('client_id'=>$CLIENT_ID,'client_secret'=>$CLIENT_SECRET ,'org_name'=>$ORG_NAME,'app_name'=>$APP_NAME);
 $IM = new Easemob($opt);
 //$usrInfo = array('result'=>'success');
 //$jsdata=json_encode($usrInfo);

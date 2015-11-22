@@ -5,6 +5,7 @@
 include ("./database/database.php");//连接数据库
 include ("./im/basedim.php");
 include ("./fun.php");
+include ("./config.php");
 $username=$_POST['username'];//接收客户端发来的username；
 $password=$_POST['password'];
 if(!postnull([$username,$password])){
@@ -13,7 +14,7 @@ if(!postnull([$username,$password])){
     exit();
 }
 
-$url = "http://server:port/api/login";    //验证登陆接口
+$url = $LOGINLINK;
 // 参数数组
 $data = [
     "username"=>$username,

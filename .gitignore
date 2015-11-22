@@ -1,2 +1,4 @@
 .svn
 *.swp
+#隐藏配置文件
+1/config.php
