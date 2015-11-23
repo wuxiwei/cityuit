@@ -37,7 +37,7 @@ switch($linkresult['status']){
         try{
             $sql="SELECT * FROM `register_user` WHERE `username` = '$username'";
             $resultsql = $pdo->query($sql);
-            if($row = $resultsql->fetch()){     //如果已经存在该帐号
+            if($row = $resultsql->fetch(PDO::FETCH_ASSOC)){     //如果已经存在该帐号
                 $userinf = array('status'=>'ok','man'=>$row['name'],'im'=>$row['im']);
                 echoinf($userinf);
             }else{

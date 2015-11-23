@@ -24,7 +24,29 @@ function postnull($options){
 function getim($options,$pdo){
 	$sql="SELECT * FROM `register_user` WHERE `username` = '$options'";
     $resultsql = $pdo->query($sql);
-    $row = $resultsql->fetch();
-    $a = $row['im'];
-    return $a;
+    $row = $resultsql->fetch(PDO::FETCH_ASSOC);
+    $im = $row['im'];
+    return $im;
+}
+/*
+ * 获取送餐人手机号
+ */
+function getphone($options,$pdo){
+	$sql="SELECT * FROM `register_send_user` WHERE `username` = '$options'";
+    $resultsql = $pdo->query($sql);
+    $row = $resultsql->fetch(PDO::FETCH_ASSOC);
+    $phone = $row['phone'];
+    return $phone;
+}
+/*
+ * 获取所有送餐人im帐号
+ */
+function getAllSendIm($pdo){
+    $sql_se="SELECT `im` FROM `register_send_user`";
+    $resultsql = $pdo->query($sql_se);
+    $senduser = [];
+    while($row = $resultsql->fetch(PDO::FETCH_ASSOC)){     //
+        Array_push($senduser,$row['im']);
+    }
+    return $senduser;
 }

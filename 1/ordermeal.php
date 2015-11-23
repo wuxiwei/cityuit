@@ -1,6 +1,6 @@
 <?php
 /*
-用户订单
+用户订餐
 */
 include ("./database/database.php");//连接数据库
 include ("./im/basedim.php");
@@ -27,9 +27,10 @@ try{
     }
     //print_r($senduser);
     $ordermanim=getim($ordermealusername,$pdo);    //获取im帐号
+    $usrInfo = array('status'=>'ok');
     $sendRes = json_decode($IM->xx_hxSend($senduser,$ordermenu,$usrInfo,$ordermanim),true);
+    //print_r($sendRes);
     if($sendRes['action'] == 'post'){
-        $usrInfo = array('status'=>'ok');
         echoinf($usrInfo);
     }else{
         $usrInfo = array('status'=>'internal error','content'=>'im error');
