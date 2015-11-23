@@ -20,9 +20,19 @@ try{
         $time = date('y-m-d h:i:s',time());   //抢单时间
         $sql_up="UPDATE `order_meal` SET `orderstate` = 's', `ordersuccess` = '$time', `sendmealman` = '$takeorderusername' WHERE `ordernum` = '$ordernum';";  //
         $pdo->exec($sql_up);
-        $takeordermanphone=getphone($takeorderusername,$pdo);    //获取送餐人手机号
+        //动作一通知订餐人有人抢单
         $ordermanim=getim($row['ordermealman'],$pdo);    //获取订餐人im帐号
-        $takeordermanim=getim($takeorderusername,$pdo);  //获取送餐人im帐号
+        $orderInfo = array('object'=>'user','status'=>'taked');     //附加判断条件
+        $takeordermanphone=getphone($takeorderusername,$pdo);    //获取送餐人手机号
+        $takeordermess=json_encode([$takeorderusername,$takeordermanphone], JSON_UNESCAPED_UNICODE);   //字符编码
+        $res = $IM->xx_hxSend([$ordermanim],$takeordermess,$orderInfo,$takeorderusername);
+        //print_r($res);
+        //动作二通知所有送餐人订单被抢
+        $senduser = getAllSendIm($pdo);   //获取所有送餐人im帐号
+        $orderInfo = array('object'=>'send','status'=>'send');     //附加判断条件
+        $res1 = $IM->xx_hxSend($senduser,$ordernum,$orderInfo,$takeorderusername);
+        //print_r($res1);
+        //动作三返回告知抢单成功
         $usrInfo = array('status'=>'take success');
         echoinf($usrInfo);
     }else{

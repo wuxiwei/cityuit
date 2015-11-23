@@ -20,11 +20,11 @@ try{
     $sql_in="INSERT INTO `order_meal` ( `ordernum`, `orderstate`, `ordermealman`, `sendmealman`, `ordermenu`, `orderstart`, `ordersuccess`, `orderend`) VALUES ('$ordernum', 'n', '$ordermealusername', '', '$ordermenu', '$time', '', '');";
     $pdo->exec($sql_in);
     $senduser = getAllSendIm($pdo);   //获取所有送餐人im帐号
-    $ordermanim=getim($ordermealusername,$pdo);    //获取im帐号
-    $usrInfo = array('status'=>'ok');
-    $sendRes = json_decode($IM->xx_hxSend($senduser,$ordermenu,$usrInfo,$ordermanim),true);
+    $orderInfo = array('object'=>'send','status'=>'new');
+    $sendRes = json_decode($IM->xx_hxSend($senduser,$ordermenu,$orderInfo,$ordermealusername),true);
     //print_r($sendRes);
-    if($sendRes['action'] == 'post'){
+    if($sendRes['action'] == 'post'){     //环信发送成功
+        $usrInfo = array('status'=>'ok');
         echoinf($usrInfo);
     }else{
         $usrInfo = array('status'=>'internal error','content'=>'im error');
