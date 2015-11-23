@@ -19,13 +19,7 @@ $time = date('y-m-d h:i:s',time());   //下单时间
 try{
     $sql_in="INSERT INTO `order_meal` ( `ordernum`, `orderstate`, `ordermealman`, `sendmealman`, `ordermenu`, `orderstart`, `ordersuccess`, `orderend`) VALUES ('$ordernum', 'n', '$ordermealusername', '', '$ordermenu', '$time', '', '');";
     $pdo->exec($sql_in);
-    $sql_se="SELECT `im` FROM `register_send_user`";
-    $resultsql = $pdo->query($sql_se);
-    $senduser = [];
-    while($row = $resultsql->fetch(PDO::FETCH_ASSOC)){     //
-        Array_push($senduser,$row['im']);
-    }
-    //print_r($senduser);
+    $senduser = getAllSendIm($pdo);   //获取所有送餐人im帐号
     $ordermanim=getim($ordermealusername,$pdo);    //获取im帐号
     $usrInfo = array('status'=>'ok');
     $sendRes = json_decode($IM->xx_hxSend($senduser,$ordermenu,$usrInfo,$ordermanim),true);
