@@ -38,7 +38,7 @@
 	"target":["sendimb","sendimc"], // 送餐人im帐号（数组）  
 	"msg":{  //消息内容  
 		"type":"cmd",  //消息类型 （透传） 
-		"action":"ordermenu"  //信息获取（客户端主要获取数据）菜单信息  
+		"action":"ordermenu"  //信息获取（客户端主要获取数据）菜单信息 json格式  
 	},  
 	"from":"ordermanusername",  //下单人学号（不使用）  
 	"ext":{   //消息类型  
@@ -65,7 +65,7 @@
 	"target":["ordermealmanim"], // 订餐人im帐号（数组）  
 	"msg":{  //消息内容  
 		"type":"cmd",  //消息类型 （透传） 
-		"action":"takeorderman"  //信息获取（客户端主要获取数据）送餐人信息（学号，手机号）  
+		"action":"takeorderman"  //信息获取（客户端主要获取数据）送餐人信息（学号，手机号） json格式  
 	},  
 	"from":"takeorderusername",  //送餐人学号（不使用）  
 	"ext":{   //消息类型  
@@ -79,7 +79,7 @@
 	"target":["sendimb","sendimc"], // 送餐人im帐号（数组）  
 	"msg":{  //消息内容  
 		"type":"cmd",  //消息类型 （透传） 
-		"action":"ordernum"  //信息获取（客户端主要获取数据）订单号  
+		"action":"ordernum"  //信息获取（客户端主要获取数据）订单号 json格式  
 	},  
 	"from":"takeorderusername",  //送餐人学号（不使用）  
 	"ext":{   //消息类型  
