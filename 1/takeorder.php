@@ -24,13 +24,14 @@ try{
         $ordermanim=getim($row['ordermealman'],$pdo);    //获取订餐人im帐号
         $orderInfo = array('object'=>'user','status'=>'taked');     //附加判断条件
         $takeordermanphone=getphone($takeorderusername,$pdo);    //获取送餐人手机号
-        $takeordermess=json_encode([$takeorderusername,$takeordermanphone], JSON_UNESCAPED_UNICODE);   //字符编码
+        $takeordermess=json_encode(['username' => $takeorderusername,'phone' => $takeordermanphone], JSON_UNESCAPED_UNICODE);   //字符编码
         $res = $IM->xx_hxSend([$ordermanim],$takeordermess,$orderInfo,$takeorderusername);
         //print_r($res);
         //动作二通知所有送餐人订单被抢
-        $senduser = getAllSendIm($pdo);   //获取所有送餐人im帐号
+        $senduser = getAllSendImonline($pdo, $IM);   //获取所有在线送餐人im帐号
         $orderInfo = array('object'=>'send','status'=>'send');     //附加判断条件
-        $res1 = $IM->xx_hxSend($senduser,$ordernum,$orderInfo,$takeorderusername);
+        $jsordernum = json_encode(['ordernum' => $ordernum], JSON_UNESCAPED_UNICODE);   //字符编码josn格式返回数据订单号
+        $res1 = $IM->xx_hxSend($senduser,$jsordernum,$orderInfo,$takeorderusername);
         //print_r($res1);
         //动作三返回告知抢单成功
         $usrInfo = array('status'=>'take success');

@@ -13,25 +13,7 @@ if(!postnull([$username,$password])){
     echoinf($usrInfo);
     exit();
 }
-
-$url = $LOGINLINK;
-// 参数数组
-$data = [
-    "username"=>$username,
-    "password"=>$password,
-];
-$this_header = [
-    "content-type"=>"application/x-www-form-urlencoded", 
-    "charset"=>"UTF-8"
-];
-$ch = curl_init (); // 启动一个CURL会话
-curl_setopt($ch,CURLOPT_HTTPHEADER,$this_header);
-curl_setopt ( $ch, CURLOPT_URL, $url );
-curl_setopt ( $ch, CURLOPT_POST, 1 );
-curl_setopt ( $ch, CURLOPT_RETURNTRANSFER, 1 );
-curl_setopt ( $ch, CURLOPT_POSTFIELDS, http_build_query($data) );
-$linkresult = json_decode(curl_exec ( $ch ), true);  //获取json数据并解析成array
-curl_close ( $ch ); // 关闭CURL会话
+$linkresult = csxylink(['url' => $LOGINLINK, 'username'=> $username, 'password' => $password]);     //验证用户登陆
 switch($linkresult['status']){
     case 'ok':
         try{
