@@ -7,7 +7,7 @@ $tel=$_POST['tel'];
 $name=$_POST['name'];
 $pas="sui bian ding yi yi ge zhi";
 try{
-	foreach ($pdo->query("select password from register_user where username=".$userID." ") as $arr) {
+	foreach ($pdo->query("SELECT password from register_user where username='$userID' ") as $arr) {
 		$pas=$arr['password'];
 	}
 
@@ -18,6 +18,6 @@ try{
 		echo "错误的学号或密码";
 	}
 }catch(PDOException $e){
-	echo "内部错误";
+	echo "内部错误，请及时联系工作人员解决 :)";
 }
 ?>

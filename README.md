@@ -12,7 +12,7 @@
 #####备注
 应用必须通过此接口登陆验证。一，获取个人信息及im帐号。二，保证用户信息在云数据库存储。
 ####2.下单
-`curl -d 'ordernum=订单号&ordermenu=订单&ordermealusername=学号' http://server.sinaapp.com/ordermeal.php`
+`curl -d 'ordernum=订单号&ordermenu=订单&ordermealusername=订餐人学号' http://server.sinaapp.com/ordermeal.php`
 #####请求
 ```
 1.ordernum=订单号  订单号=学号+时间戳（秒）  
@@ -48,9 +48,9 @@
 }
 ```
 #####备注
-菜单json嵌套json，下单实现购物车模式。监听im信息，接收消息根据消息类型判断，object表示对哪类用户有价值，否则不用处理。status状态指消息意图。下同！
+菜单json嵌套json，下单实现购物车模式。监听im信息，接收消息根据消息类型判断，object表示对哪类用户有价值，否则不用处理。status状态指消息意图。所有im信息只有在登陆监听情况下，后台给予推送。下同！
 ####3.抢单
-`curl -d 'ordernum=订单号&takeorderusername=学号' http://server.sinaapp.com/takeorder.php`
+`curl -d 'ordernum=订单号&takeorderusername=送餐人学号' http://server.sinaapp.com/takeorder.php`
 #####请求
 #####响应
 -`{"status":"internal error","content":"post null"}`POST请求数据为空  
@@ -84,10 +84,71 @@
 	"from":"takeorderusername",  //送餐人学号（不使用）  
 	"ext":{   //消息类型  
 		"object":"send",   //面向送餐人  
-		"status":"taked"    /代表单被抢  
+		"status":"taked"   //代表单被抢  
 	}  
 }
 ```
 #####备注
 注意处理im信息接收关系
+####4.确认收货
+`curl -d 'ordernum=订单号&sendorderusername=送餐人学号' http://server.sinaapp.com/dealorder.php`
+#####请求
+#####响应
+-`{"status":"internal error","content":"post null"}`POST请求数据为空  
+-`{"status":"ok"}`确认收获成功  
+#####IM接收
+```
+通知送餐人确认收获
+{  
+	"target_type":"users",  // users 给用户发消息, chatgroups 给群发消息  
+	"target":["sendordermanim"], // 送餐人im帐号（数组）  
+	"msg":{  //消息内容  
+		"type":"cmd",  //消息类型 （透传） 
+		"action":"ordernum"  //信息获取（客户端主要获取数据）订单号 json格式  
+	},  
+	"from":"admin",  //（不使用）  
+	"ext":{   //消息类型  
+		"object":"send",   //面向送餐人  
+		"status":"end"    //代表单确认收货（结束）  
+	}  
+}
+```
+#####备注
+后台自动将订单信息以成功状态存至历史订单
+####5.废弃订单（后台定时触发）
+#####请求
+#####响应
+#####IM接收
+```
+1.通知订餐人订单时间够长废弃
+{  
+	"target_type":"users",  // users 给用户发消息, chatgroups 给群发消息  
+	"target":["ordermanim"], // 订餐人im帐号（数组）  
+	"msg":{  //消息内容  
+		"type":"cmd",  //消息类型 （透传） 
+		"action":"ordernum"  //信息获取（客户端主要获取数据）订单号 json格式  
+	},  
+	"from":"admin",  //（不使用）  
+	"ext":{   //消息类型  
+		"object":"user",   //面向送餐人  
+		"status":"fail"    //代表单确认收货（结束）  
+	}  
+}
+2.通知所有送餐人某单已废弃
+{  
+	"target_type":"users",  // users 给用户发消息, chatgroups 给群发消息  
+	"target":["sendimb","sendimc"], // 送餐人im帐号（数组）  
+	"msg":{  //消息内容  
+		"type":"cmd",  //消息类型 （透传） 
+		"action":"ordernum"  //信息获取（客户端主要获取数据）订单号 json格式  
+	},  
+	"from":"admin",  //（不使用）  
+	"ext":{   //消息类型  
+		"object":"send",   //面向送餐人  
+		"status":"fail"   //代表单被抢  
+	}  
+}
+```
+#####备注
+后台自动将订单信息以失败状态存至历史订单
 ####未完待续

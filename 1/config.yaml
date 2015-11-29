@@ -1,2 +1,6 @@
 name: cityuit
 version: 1
+cron:
+    - description: chechk out timeout order
+	  url: checkoutorder.php
+	  schedule: */1 * * * * 

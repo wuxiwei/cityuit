@@ -32,7 +32,7 @@ try{
         //动作二通知所有送餐人订单被抢
         $senduser = getAllSendImonline($pdo, $IM);   //获取所有在线送餐人im帐号
         if(!empty($senduser)){
-            $orderInfo = array('object'=>'send','status'=>'send');     //附加判断条件
+            $orderInfo = array('object'=>'send','status'=>'taked');     //附加判断条件
             $jsordernum = json_encode(['ordernum' => $ordernum], JSON_UNESCAPED_UNICODE);   //字符编码josn格式返回数据订单号
             $res1 = $IM->xx_hxSend($senduser,$jsordernum,$orderInfo,$takeorderusername);
             //print_r($res1);

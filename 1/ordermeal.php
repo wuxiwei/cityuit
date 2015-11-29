@@ -15,21 +15,26 @@ if(!postnull([$ordernum,$ordermenu,$ordermealusername])){
     exit();
 }
 
-$time = date('y-m-d h:i:s',time());   //下单时间
+$time = date('y-m-d H:i:s',time());   //下单时间
 try{
     $sql_in="INSERT INTO `order_meal` ( `ordernum`, `orderstate`, `ordermealman`, `sendmealman`, `ordermenu`, `orderstart`, `ordersuccess`, `orderend`) VALUES ('$ordernum', 'n', '$ordermealusername', '', '$ordermenu', '$time', '', '');";
     $pdo->exec($sql_in);
     $senduser = getAllSendImonline($pdo, $IM);   //获取所有在线送餐人im帐号
-    $orderInfo = array('object'=>'send','status'=>'new');
-    $sendRes = json_decode($IM->xx_hxSend($senduser,$ordermenu,$orderInfo,$ordermealusername),true);
-    //print_r($sendRes);
-    if($sendRes['action'] == 'post'){     //环信发送成功
+    if(!empty($senduser)){
+        $orderInfo = array('object'=>'send','status'=>'new');
+        $sendRes = json_decode($IM->xx_hxSend($senduser,$ordermenu,$orderInfo,$ordermealusername),true);
+        //print_r($sendRes);
+        if($sendRes['action'] == 'post'){     //环信发送成功
+            $usrInfo = array('status'=>'ok');
+            echoinf($usrInfo);
+        }else{
+            $usrInfo = array('status'=>'internal error','content'=>'im error');
+            echoinf($usrInfo);
+            exit();
+        }
+    }else{
         $usrInfo = array('status'=>'ok');
         echoinf($usrInfo);
-    }else{
-        $usrInfo = array('status'=>'internal error','content'=>'im error');
-        echoinf($usrInfo);
-        exit();
     }
 }catch(PDOException $e){
     $usrInfo = array('status'=>'internal error','content'=>$e->getMessage());
