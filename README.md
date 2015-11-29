@@ -12,7 +12,7 @@
 #####备注
 应用必须通过此接口登陆验证。一，获取个人信息及im帐号。二，保证用户信息在云数据库存储。
 ####2.获取可抢状态订单
-`curl http://1.cityuit.sinaapp.com/neworder.php`
+`curl http://server.sinaapp.com/neworder.php`
 #####请求
 注：GET请求
 #####响应
@@ -22,6 +22,8 @@
 ```
 {"orders":[{"ordernum":"2013120131448714557413","where":"六号楼东区999","phone":"15941116409","reward":"1","remark":"","price":"7.0","ordermeal":[{"st":"二食堂","dk":"汁味堂特色美食屋","sl":"1","dj":"6.0","cm":"银耳肉末"}]},{"ordernum":"2013120131448713303032","where":"六号楼东区999","phone":"15941116409","reward":"1","remark":"","price":"7.0","ordermeal":[{"st":"二食堂","dk":"汁味堂特色美食屋","sl":"1","dj":"6.0","cm":"银耳肉末"}]}]}
 ```
+#####备注
+每次进入送餐界面获取最新状况
 ####3.下单
 `curl -d 'ordernum=订单号&ordermenu=订单&ordermealusername=订餐人学号' http://server.sinaapp.com/ordermeal.php`
 #####请求
