@@ -11,7 +11,18 @@
 -`{"status":"internal error"}`内部错误
 #####备注
 应用必须通过此接口登陆验证。一，获取个人信息及im帐号。二，保证用户信息在云数据库存储。
-####2.下单
+####2.获取可抢状态订单
+`curl http://1.cityuit.sinaapp.com/neworder.php`
+#####请求
+注：GET请求
+#####响应
+-`{"status":"null"}`没有可抢订单  
+-`{"status":"internal error"}`内部错误  
+-`{"orders":"订单数组"}`返回所有可抢订单,具体格式如下
+```
+{"orders":[{"ordernum":"2013120131448714557413","where":"六号楼东区999","phone":"15941116409","reward":"1","remark":"","price":"7.0","ordermeal":[{"st":"二食堂","dk":"汁味堂特色美食屋","sl":"1","dj":"6.0","cm":"银耳肉末"}]},{"ordernum":"2013120131448713303032","where":"六号楼东区999","phone":"15941116409","reward":"1","remark":"","price":"7.0","ordermeal":[{"st":"二食堂","dk":"汁味堂特色美食屋","sl":"1","dj":"6.0","cm":"银耳肉末"}]}]}
+```
+####3.下单
 `curl -d 'ordernum=订单号&ordermenu=订单&ordermealusername=订餐人学号' http://server.sinaapp.com/ordermeal.php`
 #####请求
 ```
@@ -49,7 +60,7 @@
 ```
 #####备注
 菜单json嵌套json，下单实现购物车模式。监听im信息，接收消息根据消息类型判断，object表示对哪类用户有价值，否则不用处理。status状态指消息意图。所有im信息只有在登陆监听情况下，后台给予推送。下同！
-####3.抢单
+####4.抢单
 `curl -d 'ordernum=订单号&takeorderusername=送餐人学号' http://server.sinaapp.com/takeorder.php`
 #####请求
 #####响应
@@ -90,7 +101,7 @@
 ```
 #####备注
 注意处理im信息接收关系
-####4.确认收货
+####5.确认收货
 `curl -d 'ordernum=订单号&sendorderusername=送餐人学号' http://server.sinaapp.com/dealorder.php`
 #####请求
 #####响应
@@ -115,7 +126,7 @@
 ```
 #####备注
 后台自动将订单信息以成功状态存至历史订单
-####5.废弃订单（后台定时触发）
+####6.废弃订单（后台定时触发）
 #####请求
 #####响应
 #####IM接收
@@ -150,5 +161,5 @@
 }
 ```
 #####备注
-后台自动将订单信息以失败状态存至历史订单
+后台自动将订单信息以状态存至历史订单
 ####未完待续
