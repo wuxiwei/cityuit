@@ -18,7 +18,7 @@
 #####响应
 -`{"status":"null"}`没有可抢订单  
 -`{"status":"internal error"}`内部错误  
--`{"orders":"订单数组"}`返回所有可抢订单,具体格式如下
+-`{"status":"订单数组"}`返回所有可抢订单,具体格式如下
 ```
 {"orders":[{"ordernum":"2013120131448714557413","where":"六号楼东区999","phone":"15941116409","reward":"1","remark":"","price":"7.0","ordermeal":[{"st":"二食堂","dk":"汁味堂特色美食屋","sl":"1","dj":"6.0","cm":"银耳肉末"}]},{"ordernum":"2013120131448713303032","where":"六号楼东区999","phone":"15941116409","reward":"1","remark":"","price":"7.0","ordermeal":[{"st":"二食堂","dk":"汁味堂特色美食屋","sl":"1","dj":"6.0","cm":"银耳肉末"}]}]}
 ```
@@ -78,7 +78,7 @@
 	"target":["ordermealmanim"], // 订餐人im帐号（数组）  
 	"msg":{  //消息内容  
 		"type":"cmd",  //消息类型 （透传） 
-		"action":"takeorderman"  //信息获取（客户端主要获取数据）送餐人信息（学号，手机号） json格式  
+		"action":"takeorderman"  //信息获取（客户端主要获取数据）送餐人信息（单号，学号，手机号） json格式  
 	},  
 	"from":"takeorderusername",  //送餐人学号（不使用）  
 	"ext":{   //消息类型  
@@ -164,4 +164,12 @@
 ```
 #####备注
 后台自动将订单信息以废弃状态存至历史订单
+####7.获取该学号有关的所有单号
+#####请求
+`curl -d 'username=学号' http://server.sinaapp.com/backordernum.php`
+#####响应
+-`{"status":"internal error","content":"post null"}`POST请求数据为空  
+-`{"ordernums":["2013120281448466270227","2013120281448466493412"]}`json格式返回所有单号
+-`{"status":"internal error"}`内部错误
+#####IM接收
 ####未完待续
