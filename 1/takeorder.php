@@ -1,7 +1,7 @@
 <?php
 /*
 用户抢单
-*/
+ */
 include ("./database/database.php");//连接数据库
 include ("./im/basedim.php");
 include ("./fun.php");
@@ -25,7 +25,7 @@ try{
         if(onOffLine($ordermanim, $IM) == 'online'){    //判断是否在线
             $orderInfo = array('object'=>'user','status'=>'taked');     //附加判断条件
             $takeordermanphone=getphone($takeorderusername,$pdo);    //获取送餐人手机号
-            $takeordermess=json_encode(['username' => $takeorderusername,'phone' => $takeordermanphone], JSON_UNESCAPED_UNICODE);   //字符编码
+            $takeordermess=json_encode(['ordernum' => $ordernum,'username' => $takeorderusername,'phone' => $takeordermanphone], JSON_UNESCAPED_UNICODE);   //字符编码
             $res = $IM->xx_hxSend([$ordermanim],$takeordermess,$orderInfo,$takeorderusername);
         }
         //print_r($res);

@@ -1,7 +1,7 @@
 <?php
 /*
 刚登陆时获取订单
-*/
+ */
 include ("./database/database.php");//连接数据库
 include ("./fun.php");
 try{
@@ -12,7 +12,7 @@ try{
         Array_push($neworder,json_decode($row['ordermenu'], JSON_UNESCAPED_UNICODE));
     }
     if(!empty($neworder)){
-        $orderInfo = array('orders'=>$neworder);
+        $orderInfo = array('status'=>$neworder);
         echoinf($orderInfo);
     }else{
         $usrInfo = array('status'=>'null');
