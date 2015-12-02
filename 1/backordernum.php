@@ -23,7 +23,7 @@ try{
     while($row = $resultsql->fetch(PDO::FETCH_ASSOC)){     //先查询进行中订单是否存在
         Array_push($ordernumall,$row['ordernum']);
     }
-    $userinf = array('ordernums'=>$ordernumall);
+    $userinf = array('status'=>$ordernumall);
     echoinf($userinf);
 }catch(PDOException $e){
     $usrInfo = array('status'=>'internal error','content'=>$e->getMessage());

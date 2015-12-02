@@ -169,7 +169,7 @@
 `curl -d 'username=学号' http://server.sinaapp.com/backordernum.php`
 #####响应
 -`{"status":"internal error","content":"post null"}`POST请求数据为空  
--`{"ordernums":["2013120281448466270227","2013120281448466493412"]}`json格式返回所有单号  
+-`{"status":["2013120281448466270227","2013120281448466493412"]}`json格式返回所有单号  
 -`{"status":"internal error"}`内部错误
 #####IM接收
 #####备注

@@ -15,7 +15,7 @@ foreach ($pdo->query("SELECT * FROM `order_meal`") as $arr){
 		$ordersuccess=$arr['ordersuccess'];
 		$orderstart=$arr['orderstart'];
 		try{
-		    $sql_in = "INSERT INTO `old_orders` SET `ordernum`='$ordernum',`orderstate`='f',`ordermealman`='$ordermealman',`sendmealman`='$sendmealman',`ordermenu`='$ordermenu',`orderstart`='$orderstart',`ordersuccess`='$ordersuccess',`orderend`='$time',`price`='$price',`bounty`='$bounty'";
+		    $sql_in = "INSERT INTO `old_orders` SET `ordernum`='$ordernum',`orderstate`='o',`ordermealman`='$ordermealman',`sendmealman`='$sendmealman',`ordermenu`='$ordermenu',`orderstart`='$orderstart',`ordersuccess`='$ordersuccess',`orderend`='$time',`price`='$price',`bounty`='$bounty'";
 		    $pdo->exec($sql_in);
 		    $sql_de = "DELETE FROM `order_meal` WHERE `ordernum` = '$ordernum'";
 		    $pdo->exec($sql_de);
