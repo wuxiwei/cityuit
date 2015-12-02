@@ -173,4 +173,15 @@
 -`{"status":"internal error"}`内部错误
 #####IM接收
 #####备注
+####8.获取该单号所有详情
+#####请求
+`curl -d 'ordernum=单号' http://server.sinaapp.com/orderdetall.php`
+#####响应
+-`{"status":"internal error","content":"post null"}`POST请求数据为空  
+-`{"ordernum":"2013120131448707468197","orderstate":"s","ordermealman":"201312050","sendmealman":"201422052","sendmanphone":"18940961111","ordermenu":[{"ordernum":"2013120131448707468197","where":"六号楼东区111","phone":"15941116408","reward":"1","remark":"","price":"6.0","ordermeal":[{"st":"二食堂","dk":"汁味堂特色美食屋","sl":"1","dj":"6.0","cm":"银耳肉末"}]}],"orderstart":"15-11-28 18:44:33","ordersucces":"15-11-28 18:47:13","orderend":""}`json格式返回单号详情  
+-`{"status":"order null"}`没有该单号详情  
+-`{"status":"internal error"}`内部错误
+#####IM接收
+#####备注
+状态：n ->新订单，可抢单，s->被抢，正在送，o->成功收货，f->失败单。如果没有送餐人，就没有送餐人手机号。
 ####未完待续
