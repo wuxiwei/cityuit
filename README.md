@@ -184,4 +184,15 @@
 #####IM接收
 #####备注
 状态：n ->新订单，可抢单，s->被抢，正在送，o->成功收货，f->失败单。如果没有送餐人，就没有送餐人手机号。
+####9.判断该学号是否可以送餐
+#####请求
+`curl -d 'username=学号' http://server.sinaapp.com/sendable.php`
+#####响应
+-`{"status":"internal error","content":"post null"}`POST请求数据为空  
+-`{"status":"ok"}`可以送餐  
+-`{"status":"no"}`不可以送餐  
+-`{"status":"internal error"}`内部错误
+#####IM接收
+#####备注
+如果不可以送餐，客户端统一提示：您未申请送餐，请关注微心城院小助手（csxyxzs）申请送餐，感谢使用。
 ####未完待续
