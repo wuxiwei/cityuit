@@ -1,4 +1,4 @@
-#PHP版本 城市学院小助手sae备份
+#PHP版本 城市学院小助手送餐接口sae备份
 ###接口使用
 ####1.登陆
 `curl -d 'username=学号&password=密码' http://server.sinaapp.com/login.php`
